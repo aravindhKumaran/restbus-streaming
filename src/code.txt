@@ -1,0 +1,39 @@
+#list topics
+./kafka-topics.sh --list --zookeeper $ZOOKEEPER_CONNECTION_STRING
+
+#list connectors
+curl -H "Accept:application/json" localhost:8083/connectors/
+
+#to delete conncetor
+curl -X DELETE http://localhost:8083/connectors/bus-connector
+
+#create connector
+#establish connection
+curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d @filepath
+
+# read incoming messages on dbserver1.demo.bus_status
+./kafka-console-consumer.sh  --bootstrap-server $BOOTSTRAP_SERVERS  --topic dbserver1.demo.bus_status  --from-beginning
+
+
+# SSH into the emr-master from your computer
+ssh -i 01-setup-ec-vm/nifi-ec-vm.pem hadoop@ec2-3-97-52-3.ca-central-1.compute.amazonaws.com
+
+#Submitting the spark streaming app using  client mode.
+spark-submit --master yarn --deploy-mode client \
+    --name wcd-streaming-app \
+    --jars /usr/lib/hudi/hudi-spark-bundle.jar,/usr/lib/spark/external/lib/spark-avro.jar \
+    --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1 \
+    --conf "spark.serializer=org.apache.spark.serializer.KryoSerializer" \
+    --conf "spark.sql.hive.convertMetastoreParquet=false" \
+    s3://bus-service-wcd-eu-west-1/msk/jars/pyspark_job.py
+
+#Submitting the spark streaming app using  cluster mode.
+spark-submit --master yarn --deploy-mode cluster \
+    --name wcd-stremaing-app \
+    --jars /usr/lib/hudi/hudi-spark-bundle.jar,/usr/lib/spark/external/lib/spark-avro.jar\
+    --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1 \
+    --conf "spark.serializer=org.apache.spark.serializer.KryoSerializer" \
+    --conf "spark.sql.hive.convertMetastoreParquet=false" \
+    s3://bus-service-wcd-eu-west-1/msk/jars/pyspark_job.py
+
+    #test
