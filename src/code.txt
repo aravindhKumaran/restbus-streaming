@@ -37,3 +37,6 @@ spark-submit --master yarn --deploy-mode cluster \
     s3://bus-service-wcd-eu-west-1/msk/jars/pyspark_job.py
 
     #test
+
+    To give execute permissions to all files under a specific "bin" folder
+   sudo chmod -R +x bin/
