@@ -11,7 +11,7 @@
         "database.server.id": "184054", 
         "database.server.name": "dbserver1", 
         "database.include.list": "demo", 
-        "database.history.kafka.bootstrap.servers":"b-3.streamingmsk.38cnob.c2.kafka.ca-central-1.amazonaws.com:9092,b-2.streamingmsk.38cnob.c2.kafka.ca-central-1.amazonaws.com:9092,b-1.streamingmsk.38cnob.c2.kafka.ca-central-1.amazonaws.com:9092" ,
+        "database.history.kafka.bootstrap.servers":"b-2.restproj.52jqx9.c2.kafka.ca-central-1.amazonaws.com:9092,b-3.restproj.52jqx9.c2.kafka.ca-central-1.amazonaws.com:9092,b-1.restproj.52jqx9.c2.kafka.ca-central-1.amazonaws.com:9092" ,
         "database.history.kafka.topic": "dbhistory.demo" 
     } 
 } 
