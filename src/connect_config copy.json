@@ -11,7 +11,7 @@
         "database.server.id": "184054", 
         "database.server.name": "dbserver1", 
         "database.include.list": "demo", 
-        "database.history.kafka.bootstrap.servers":"kafka:9092",
+        "database.history.kafka.bootstrap.servers":"b-2.restbus.wc8w4g.c2.kafka.ca-central-1.amazonaws.com:9092,b-1.restbus.wc8w4g.c2.kafka.ca-central-1.amazonaws.com:9092,b-3.restbus.wc8w4g.c2.kafka.ca-central-1.amazonaws.com:9092",
         "database.history.kafka.topic": "dbhistory.demo",
         "linger.ms": "5"
     } 

@@ -1,3 +1,6 @@
+import pyspark
+from pyspark.sql.types import *
+
 struct_schema = StructType([
     StructField("payload", StructType([
         StructField("after", StructType([

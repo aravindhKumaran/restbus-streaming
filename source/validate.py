@@ -2,25 +2,18 @@ import pyspark
 from pyspark.sql import SparkSession
 import toml
 import logging
-from utils import setup_logger, load_config
+from log_utils import setup_logger
+from typing import Optional, Any
 
-conf_path = '/home/ubuntu/aws_restbus_proj/source/config.toml'
-config = load_config(conf_path, 'r')
-
-loc_log = config['dev']['logs_dir']
-s3_logs = config['prod']['logs_dir']
-logger = setup_logger(log_level='INFO', log_file=loc_log)
-
-
-
-def test_spark_obj(spark):
-    
+def test_spark_obj((spark: Optional[Any], logger: logging.Logger) -> bool):
     try:
         logger.warning('Started the test_spark_obj method')
-        spark
-        print(f"spark object created: {spark}")
+        if spark:
+            logger.warning('Validation successful!')
+            return True
+        else:
+            logger.warning('Validation failed!')
+            return False
     except Exception as e:
-        logger.error('An error occured in test_spark_obj method.. ', str(e))
+        logger.error('An error occurred in test_spark_obj method:', exc_info=True)
         raise
-    else:
-        logger.warning('Validation done..!')

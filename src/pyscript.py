@@ -3,11 +3,10 @@ from pyspark.sql.types import *
 from pyspark.sql.functions import *
 
 
-BOOTSTRAP_SERVERS='b-3.restbusmsk.j3hkmm.c2.kafka.ca-central-1.amazonaws.com:9092,b-2.restbusmsk.j3hkmm.c2.kafka.ca-central-1.amazonaws.com:9092,b-1.restbusmsk.j3hkmm.c2.kafka.ca-central-1.amazonaws.com:9092'
+BOOTSTRAP_SERVERS='b-2.restbus.wc8w4g.c2.kafka.ca-central-1.amazonaws.com:9092,b-1.restbus.wc8w4g.c2.kafka.ca-central-1.amazonaws.com:9092,b-3.restbus.wc8w4g.c2.kafka.ca-central-1.amazonaws.com:9092'
 
-checkpoint_location = "s3://rest-bus/checkpoint/"
-s3_path = "s3://rest-bus/routes/"
-schema_path="s3://rest-bus/schema.json"
+checkpoint_location = "s3://local-restbus/checkpoint/"
+s3_path = "s3://local-restbus/routes/"
 
 
 if __name__ == "__main__":
