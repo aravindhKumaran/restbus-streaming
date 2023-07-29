@@ -1,0 +1,33 @@
+[dev]
+master = 'local[*]'
+deployMode = 'client'
+bootstrap_server = '0.0.0.0:9092'
+logs_dir = '/home/ubuntu/aws_restbus_proj/logs/script_logs'
+
+[prod]
+master = 'yarn'
+deployMode = 'cluster'
+bootstrap_server = '--'
+checkpoint_location = "s3://rest-bus/checkpoint/"
+s3_path = "s3://rest-bus/routes/"
+logs_dir = "s3://restbus-logs/"
+
+
+[kafka]
+topic = 'dbserver1.demo.bus_status'
+offset = 'latest'
+
+[spark]
+read_format = 'kafka'
+
+
+[hoodie_options]
+hoodie.table.name = "bus_status"
+hoodie.datasource.write.table.type = "COPY_ON_WRITE"
+hoodie.datasource.write.recordkey.field = "record_id"
+hoodie.datasource.write.partitionpath.field = "routeId"
+hoodie.datasource.write.table.name = "bus_status"
+hoodie.datasource.write.operation = "upsert"
+hoodie.datasource.write.precombine.field = "event_time"
+hoodie.upsert.shuffle.parallelism = 100
+hoodie.insert.shuffle.parallelism = 100

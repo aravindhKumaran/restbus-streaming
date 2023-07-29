@@ -3,7 +3,7 @@ from pyspark.sql.types import *
 from pyspark.sql.functions import *
 
 
-BOOTSTRAP_SERVERS='b-2.restproj.52jqx9.c2.kafka.ca-central-1.amazonaws.com:9092,b-3.restproj.52jqx9.c2.kafka.ca-central-1.amazonaws.com:9092,b-1.restproj.52jqx9.c2.kafka.ca-central-1.amazonaws.com:9092'
+BOOTSTRAP_SERVERS='b-3.restbusmsk.j3hkmm.c2.kafka.ca-central-1.amazonaws.com:9092,b-2.restbusmsk.j3hkmm.c2.kafka.ca-central-1.amazonaws.com:9092,b-1.restbusmsk.j3hkmm.c2.kafka.ca-central-1.amazonaws.com:9092'
 
 checkpoint_location = "s3://rest-bus/checkpoint/"
 s3_path = "s3://rest-bus/routes/"

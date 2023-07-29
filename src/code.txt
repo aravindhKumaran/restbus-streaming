@@ -1,5 +1,5 @@
 #list topics
-./kafka-topics.sh --list --zookeeper $ZOOKEEPER_CONNECTION_STRING
+./kafka-topics.sh --list --bootstrap-server $BOOTSTRAP_SERVERS
 
 #list connectors
 curl -H "Accept:application/json" localhost:8083/connectors/
