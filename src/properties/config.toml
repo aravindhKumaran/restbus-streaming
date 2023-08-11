@@ -1,0 +1,41 @@
+[dev]
+master = "local[*]"
+deployMode = "client"
+bootstrap_server = "0.0.0.0:9092"
+log_level = "INFO"
+logs_dir = "/home/ubuntu/aws_restbus_proj/logs/script_logs/streaming.log"
+packages = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.2,org.apache.hudi:hudi-spark3-bundle_2.12:0.12.3,com.amazonaws:aws-java-sdk-bundle:1.12.507,org.apache.hadoop:hadoop-aws:3.3.2"
+serializer = "org.apache.spark.serializer.KryoSerializer"
+
+[prod]
+master = "local[*]"
+deployMode = "client"
+bootstrap_server = "b-2.restbus.wc8w4g.c2.kafka.ca-central-1.amazonaws.com:9092,b-1.restbus.wc8w4g.c2.kafka.ca-central-1.amazonaws.com:9092,b-3.restbus.wc8w4g.c2.kafka.ca-central-1.amazonaws.com:9092"
+checkpoint_location = "s3a://rest-bus/checkpoint/"
+s3_base_path = "s3a://rest-bus/routes/"
+log_level = "INFO"
+logs_dir = "s3a://restbus-logs/"
+packages = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.2,org.apache.hudi:hudi-spark3-bundle_2.12:0.12.3"
+serializer = "org.apache.spark.serializer.KryoSerializer"
+
+[kafka]
+topic = "dbserver1.demo.bus_status"
+offset = "latest"
+
+[spark]
+envn = "prod"
+app_name = "streaming-restbus_app"
+read_format = "kafka"
+write_mode = "append"
+query_name = "restbus_query"
+
+[hoodie_options]
+hoodie.table.name = "bus_status"
+hoodie.datasource.write.table.type = "COPY_ON_WRITE"
+hoodie.datasource.write.recordkey.field = "record_id"
+hoodie.datasource.write.partitionpath.field = "routeId"
+hoodie.datasource.write.operation = "upsert"
+hoodie.datasource.write.precombine.field = "event_time"
+hoodie.upsert.shuffle.parallelism = 100
+hoodie.insert.shuffle.parallelism = 100
+hoodie.cleaner.commits.retained = 2
