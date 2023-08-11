@@ -10,20 +10,21 @@ check_status() {
 
 # Array of setup scripts
 setup_scripts=(
+    "mysql/setup_mysql.sh"
     "nifi/setup_nifi.sh"
+    "zookeeper/setup_zookeeper.sh"
     "kafka/setup_kafka.sh"
     "msk-connect/setup_connect.sh"
-    "spark/setup_spark.sh"
-    "superset/setup_superset.sh"
+    "spark/setup_spark.sh"  
 )
 
 # Base path where the setup scripts are located
-base_path="/path/to/scripts/directory"
+base_path="/home/ubuntu/restbus-streaming/infrastructure/"
 
 # Loop through the setup scripts and execute them
 for script in "${setup_scripts[@]}"; do
     echo "Running $script..."
-    sudo chmod 766 "$base_path/$script"
+    sudo chmod +x "$base_path/$script"
     "$base_path/$script"
     check_status
 done
